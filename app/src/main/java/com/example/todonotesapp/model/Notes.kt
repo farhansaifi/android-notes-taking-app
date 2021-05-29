@@ -1,4 +1,6 @@
 package com.example.todonotesapp.model
 
-class Notes {
-}
+    // This ia data class data class is something
+    // which stores some data for you
+    // It's called a primary constructor
+    data class Notes (val title:String, val description:String)

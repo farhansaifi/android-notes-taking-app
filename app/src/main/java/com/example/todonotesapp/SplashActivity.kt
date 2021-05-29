@@ -5,6 +5,7 @@ package com.example.todonotesapp
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class SplashActivity :AppCompatActivity() {
@@ -34,15 +35,17 @@ class SplashActivity :AppCompatActivity() {
         // Check these conditions we need SharedPreferences
         val isLoggedIn = sharedPreferences.getBoolean(PrefConstant.IS_LOGGED_IN,false)
 
+        Toast.makeText(this@SplashActivity,isLoggedIn.toString(),Toast.LENGTH_LONG).show()
+
         if (isLoggedIn){
 
             // Check Condition if logged_in is TRUE open MyNoteActivity
-            val intent = Intent(this@SplashActivity,MyNotesActivity::class.java)
+            val intent = Intent(this@SplashActivity,LoginActivity::class.java)
             startActivity(intent)
 
         } else {
 
-            // Check Condition if logged_in is FALSE open MyNoteActivity
+            // Check Condition if logged_in is FALSE open LoginActivity
             val intent = Intent(this@SplashActivity,LoginActivity::class.java)
             startActivity(intent)
         }
