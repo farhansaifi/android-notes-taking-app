@@ -8,18 +8,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TodoNotesApp">
-        <activity android:name=".SplashActivity">
+        android:theme="@style/Theme.TodoNotesApp"
+        android:name=".NotesApp">
+        <activity android:name=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".DetailActivity"/>
-        <activity android:name=".MyNotesActivity"/>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".view.LoginActivity"/>
+        <activity android:name=".view.DetailActivity"/>
+        <activity android:name=".view.MyNotesActivity"/>
+        <activity android:name=".view.MainActivity" />
     </application>
 
 </manifest>

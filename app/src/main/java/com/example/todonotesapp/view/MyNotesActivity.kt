@@ -1,9 +1,10 @@
-package com.example.todonotesapp
+package com.example.todonotesapp.view
 
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -13,6 +14,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todonotesapp.utils.AppConstant
+import com.example.todonotesapp.utils.PrefConstant
+import com.example.todonotesapp.R
 import com.example.todonotesapp.adapter.NotesAdapter
 import com.example.todonotesapp.clicklistener.ItemClickListener
 import com.example.todonotesapp.model.Notes
@@ -21,14 +25,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 public class MyNotesActivity :AppCompatActivity() {
 
     val TAG ="MyNotesActivity"
-    lateinit var fullName : String
+    var fullName : String? = null
     lateinit var fabAddNotes :FloatingActionButton
     lateinit var sharedPreferences : SharedPreferences
     lateinit var recyclerViewNotes : RecyclerView
     var notesList = ArrayList<Notes>()
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_notes)
 
         // create a function for binding data instead of findViewById(R.id.________)
@@ -80,7 +84,7 @@ public class MyNotesActivity :AppCompatActivity() {
                 val title = editTextTitle.text.toString()
                 val description = editTextDescription.text.toString()
 
-                if (title.isNotEmpty() && description.isEmpty()){
+                if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(description)){
 
                     // Get Notes data class constructors
                     val notes = Notes (title, description)
@@ -107,19 +111,18 @@ public class MyNotesActivity :AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
+        Log.d(TAG,"RecyclerView Works Fine")
 
         // create interface for ItemClickListener
         val itemClickListener = object  :ItemClickListener{
             override fun onClick(notes: Notes) {
 
-                val intent = Intent(this@MyNotesActivity,DetailActivity::class.java)
+                val intent = Intent(this@MyNotesActivity, DetailActivity::class.java)
                 intent.putExtra(AppConstant.NOTE_TITLE,notes.title)
                 intent.putExtra(AppConstant.DESCRIPTION,notes.description)
                 startActivity(intent)
             }
-
         }
-
         val notesAdapter = NotesAdapter(notesList,itemClickListener)
         val linearLayoutManager = LinearLayoutManager(this@MyNotesActivity)
         linearLayoutManager.orientation = RecyclerView.VERTICAL
@@ -142,15 +145,10 @@ public class MyNotesActivity :AppCompatActivity() {
 
         // Create intent for get data from previous activity
         val intent = intent
+        fullName = intent.getStringExtra(AppConstant.FULL_NAME)
         if (intent.hasExtra(AppConstant.FULL_NAME)) {
 
-            fullName = intent.getStringExtra(AppConstant.FULL_NAME).toString()
-        }
-
-        // if intent Full Name data is empty so we get FUll Name data from sharedPreference
-        if (fullName.isEmpty()){
-
-            fullName = sharedPreferences.getString(PrefConstant.FULL_NAME,"").toString()
+            fullName = sharedPreferences.getString(PrefConstant.FULL_NAME, "")!!
         }
     }
 }

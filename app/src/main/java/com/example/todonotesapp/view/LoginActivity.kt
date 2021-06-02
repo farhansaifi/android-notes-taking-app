@@ -1,13 +1,16 @@
-package com.example.todonotesapp
+package com.example.todonotesapp.view
 
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.todonotesapp.utils.AppConstant
+import com.example.todonotesapp.utils.PrefConstant
+import com.example.todonotesapp.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -18,12 +21,12 @@ class LoginActivity : AppCompatActivity() {
     lateinit var sharedPreferences : SharedPreferences
     lateinit var editor :SharedPreferences.Editor
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         //binding the views function
-        bindViews();
+        bindViews()
 
         //Let's create a function for  sharedPreferences
         setUpSharedPreferences()
@@ -33,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
         editTextFullName = findViewById(R.id.editTextFullName)
         editTextUserName = findViewById(R.id.editTextUserName)
+        buttonLogin = findViewById(R.id.buttonLogin)
 
         val clickAction = object : View.OnClickListener{
             override fun onClick(v: View?) {
@@ -45,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
 
                     // Here we code onClick event in object
                     // Goes this activity to myNotesActivity using intent
-                    val intent = Intent(this@LoginActivity,MyNotesActivity::class.java)
+                    val intent = Intent(this@LoginActivity, MyNotesActivity::class.java)
 
                     // we send some data from this activity to another activity using putExtra
                     // putExtra is part of intent
@@ -53,15 +57,19 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intent)
 
                     // save full name myNoteActivity function
-                    saveFullName(fullName);
+                    saveFullName(fullName)
 
                     // After login saved shared preference for login status function
-                    saveLoginStatus();
+                    saveLoginStatus()
+                } else{
+
+                    Toast.makeText(this@LoginActivity,"FullName and Username Can't be Empty!"
+                        ,Toast.LENGTH_LONG).show()
                 }
             }
-
         }
-        buttonLogin = findViewById(R.id.buttonLogin)
+        // Set onClick action on submit button
+        buttonLogin.setOnClickListener(clickAction)
     }
 
     private fun setUpSharedPreferences() {
