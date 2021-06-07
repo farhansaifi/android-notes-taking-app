@@ -2,14 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.todonotesapp">
 
+    <!--Adding permissions-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
+        android:name=".NotesApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TodoNotesApp"
-        android:name=".NotesApp">
+        android:theme="@style/Theme.TodoNotesApp">
+
+        <!--Providing support authority added-->
+        <!--And then we granted a permissions for permission-->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:grantUriPermissions="true">
+
+            <!--Add path for support-->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
         <activity android:name=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,10 +35,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.LoginActivity"/>
-        <activity android:name=".view.DetailActivity"/>
-        <activity android:name=".view.MyNotesActivity"/>
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.DetailActivity" />
+        <activity android:name=".view.MyNotesActivity" />
         <activity android:name=".view.MainActivity" />
+        <activity android:name=".view.AddNotesActivity"/>
     </application>
 
 </manifest>

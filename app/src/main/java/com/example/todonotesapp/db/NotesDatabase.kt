@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 
 // Create a abstract class this class is create the database
 
-@Database(entities = [Notes::class], version = 1)
+@Database(entities = [Notes::class], version = 2)
 
 abstract class NotesDatabase: RoomDatabase() {
     abstract fun notesDao():NotesDao
@@ -21,6 +21,7 @@ abstract class NotesDatabase: RoomDatabase() {
                 INSTANCE = Room.databaseBuilder(context.applicationContext
                     ,NotesDatabase::class.java,"my-notes.db")
                     .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build()
             }
             return INSTANCE

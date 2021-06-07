@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<paths>
+        <external-path
+            name="external_files"
+            path="." />
+        <external-files-path
+            name="external_files"
+            path="." />
+        &lt;!&ndash; FOR SD CARD&ndash;&gt;
+        <root-path
+            name="sdcard1"
+            path="." />
+    </paths>-->
+
+
+    <external-path
+        name="my_images"
+        path="Android/data/com.example.todonotesapp/files/Pictures">
+
+    </external-path>
+
+</paths>

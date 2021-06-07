@@ -55,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
                     // putExtra is part of intent
                     intent.putExtra(AppConstant.FULL_NAME,fullName)
                     startActivity(intent)
+                    finish()
 
                     // save full name myNoteActivity function
                     saveFullName(fullName)
