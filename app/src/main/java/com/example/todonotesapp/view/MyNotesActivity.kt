@@ -14,6 +14,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.example.todonotesapp.NotesApp
 import com.example.todonotesapp.utils.PrefConstant
 import com.example.todonotesapp.R
@@ -21,7 +24,9 @@ import com.example.todonotesapp.adapter.NotesAdapter
 import com.example.todonotesapp.clicklistener.ItemClickListener
 import com.example.todonotesapp.db.Notes
 import com.example.todonotesapp.utils.AppConstant
+import com.example.todonotesapp.workmanager.MyWorker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.concurrent.TimeUnit
 
 class MyNotesActivity :AppCompatActivity() {
 
@@ -36,20 +41,39 @@ class MyNotesActivity :AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_notes)
 
-        // create a method for binding data instead of findViewById(R.id.________)
+        // create a function for binding data instead of findViewById(R.id.________)
         bindView()
-        // set up sharedPreference method for this activity
+        // set up sharedPreference function for this activity
         setupSharedPreference()
-        // create a method for getting data from Intent
+        // create a function for getting data from Intent
         getIntentData()
-        // Create a method for get data from database
+        // Create a function for get data from database
         getDataFromDataBase()
-        // Method for Get name from previous activity and to set on action bar title
+        // Function for Get name from previous activity and to set on action bar title
         setUpToolbar()
-        // Create a method for clickListener
+        // Create a function for clickListener
         clickListeners()
-        // create a method for setting up recyclerView
+        // create a function for setting up recyclerView
         setupRecyclerView()
+        // create a function for work_manager
+        setupWorkManager()
+    }
+
+    // This function is runs a database delete query in every 15 min
+    // and than that note card's check_box is checked means note is completed
+    // This function or work_manager delete that note from the database
+    private fun setupWorkManager() {
+
+        // constraints is like a condition definer
+        // like app runs only charging time, runs only mobile data is connected etc...
+        val constraints = Constraints.Builder()
+            //.setRequiresCharging(true)--->>(This is an example how to use constraints)
+            .build()
+        val request = PeriodicWorkRequest.Builder(MyWorker::class.java,
+            1,TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .build()
+        WorkManager.getInstance().enqueue(request)
     }
 
     private fun bindView() {
@@ -93,7 +117,7 @@ class MyNotesActivity :AppCompatActivity() {
         fabAddNotes.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
 
-                // Set up a method for dialog box for adding a new note
+                // Set up a function for dialog box for adding a new note
                 /*setupDialogBox()*/
 
                 // Start a new activity for adding a not and disable the dialog_box
@@ -133,7 +157,7 @@ class MyNotesActivity :AppCompatActivity() {
         recyclerViewNotes.adapter = notesAdapter
     }
 
-    // This method for second activity to get data for previous activity without startActivity
+    // This function for second activity to get data for previous activity without startActivity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -162,7 +186,7 @@ class MyNotesActivity :AppCompatActivity() {
         }
     }
 
-    // We are comment out the method set_up_dialog_box it's not use anymore
+    // We are comment out the function set_up_dialog_box it's not use anymore
     /*private fun setupDialogBox() {
 
         // we have inflate a layout from the MyNotesActivity screen and than pass inflate

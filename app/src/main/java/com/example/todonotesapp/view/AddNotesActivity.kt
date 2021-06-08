@@ -128,37 +128,30 @@ class AddNotesActivity : AppCompatActivity() {
             .setCancelable(true)
             .create()
 
-        // set OnCliCkListener on gallery textView to open device gallery
+        // set OnCliCkListener on camera textView to open device camera
         textViewCamera.setOnClickListener(object :View.OnClickListener{
             override fun onClick(v: View?) {
                 // Open a Camera first of all we create a intent
                 // But we cant pass source or destination we will pass an ACTIONS
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                if (takePictureIntent.resolveActivity(packageManager) != null){
-                    var photoFile : File? = null
 
-                    try {
+                    var photoFile : File? = null
                         // create a method for create a temporary file in pictures directory
                         photoFile = createImageFile()
-                    } catch (e: Exception) {
-                    }
-
                     // Convert temporary file in uri
                     if (photoFile != null){
                         val photoUri : Uri = FileProvider.getUriForFile(this@AddNotesActivity,
                         BuildConfig.APPLICATION_ID+".provider",
                         photoFile)
 
-                        imageLocation = photoFile
+                        imageLocation = photoFile.absoluteFile
 
                         // And then this file/uri pass to intent
                         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri)
-                        dialog.hide()
                         startActivityForResult(takePictureIntent,AppConstant.REQUEST_CODE_CAMERA)
+                        dialog.hide()
                     }
                 }
-            }
-
         })
 
         // set OnCliCkListener on gallery textView to open device gallery

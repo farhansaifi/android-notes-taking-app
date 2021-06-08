@@ -18,8 +18,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:id="@+id/imageViewAdd"
         android:layout_marginTop="50dp"
         android:src="@mipmap/ic_launcher_round"

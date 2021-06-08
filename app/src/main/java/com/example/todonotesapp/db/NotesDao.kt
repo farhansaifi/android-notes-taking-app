@@ -21,4 +21,8 @@ interface NotesDao{
 
     @Delete
     fun delete(notes: Notes)
+
+    // Create a function for work_manager
+    @Query("DELETE FROM notesData WHERE isTaskCompleted = :status")
+    fun deleteNotes(status:Boolean)
 }
