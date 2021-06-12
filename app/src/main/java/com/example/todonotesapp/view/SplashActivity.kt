@@ -5,9 +5,13 @@ package com.example.todonotesapp.view
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todonotesapp.utils.PrefConstant
 import com.example.todonotesapp.R
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 class SplashActivity :AppCompatActivity() {
 
@@ -22,6 +26,26 @@ class SplashActivity :AppCompatActivity() {
 
         // Creating a function for check login status
         checkLoginStatus()
+
+        // creating function for firebase cloud messaging (FCM)
+        getFCMToken()
+    }
+
+    private fun getFCMToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("SplashActivity", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result.toString()
+
+            // Log and toast
+
+            Log.d("SplashActivity", token)
+            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun setupSharedPreference() {

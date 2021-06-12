@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -184,6 +186,23 @@ class MyNotesActivity :AppCompatActivity() {
             // list position is last position code
             recyclerViewNotes.adapter?.notifyItemChanged(notesList.size-1)
         }
+    }
+    // create three dot menu in MyNotesActivity
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        // Adding a resource menu file
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item?.itemId == R.id.blog){
+            Log.d(tag,"Click success")
+            val intent = Intent(this,BlogActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     // We are comment out the function set_up_dialog_box it's not use anymore
