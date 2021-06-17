@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todonotesapp.utils.PrefConstant
 import com.example.todonotesapp.R
+import com.example.todonotesapp.onboarding.OnBoardingActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -59,6 +60,7 @@ class SplashActivity :AppCompatActivity() {
         // else show them loginActivity
         // Check these conditions we need SharedPreferences
         val isLoggedIn = sharedPreferences.getBoolean(PrefConstant.IS_LOGGED_IN,false)
+        val isBoardingSuccess = sharedPreferences.getBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY,false)
 
        /* Toast.makeText(this@SplashActivity,isLoggedIn.toString(),Toast.LENGTH_LONG).show()*/
 
@@ -71,12 +73,19 @@ class SplashActivity :AppCompatActivity() {
             finish()
 
         } else {
+            // check onBoarding condition if onBoarding is false show tutorial screen
+            // else go to loginActivity
+                if (isBoardingSuccess) {
 
-            // Check Condition if logged_in is FALSE open LoginActivity
-            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-            startActivity(intent)
-            // Terminate the SplashActivity
-            finish()
+                    // Check Condition if logged_in is FALSE open LoginActivity
+                    val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    // Terminate the SplashActivity
+                    finish()
+                } else {
+                    val intent = Intent(this@SplashActivity, OnBoardingActivity::class.java)
+                    startActivity(intent)
+                }
         }
     }
 
