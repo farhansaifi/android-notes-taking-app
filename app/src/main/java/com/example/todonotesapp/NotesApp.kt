@@ -2,7 +2,7 @@ package com.example.todonotesapp
 
 import android.app.Application
 import com.androidnetworking.AndroidNetworking
-import com.example.todonotesapp.db.NotesDatabase
+import com.example.todonotesapp.data.local.db.NotesDatabase
 
 // This class is making for access the database
 
@@ -15,7 +15,7 @@ class NotesApp: Application() {
 
     }
 
-    fun getNotesDb():NotesDatabase{
+    fun getNotesDb(): NotesDatabase {
         return NotesDatabase.getInstance(this)
     }
 }

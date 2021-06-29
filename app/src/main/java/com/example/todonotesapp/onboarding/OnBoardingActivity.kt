@@ -4,14 +4,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.todonotesapp.R
-import com.example.todonotesapp.utils.PrefConstant
-import com.example.todonotesapp.view.LoginActivity
+import com.example.todonotesapp.data.local.pref.PrefConstant
+import com.example.todonotesapp.data.local.pref.StoreSession
+import com.example.todonotesapp.login.LoginActivity
 
 class OnBoardingActivity : AppCompatActivity(),OnBoardingOneFragment.OnNextClick,OnBoardingTwoFragment.OnOptionClick {
 
-    private lateinit var viewPager: ViewPager
+    private lateinit var viewPager: ViewPager2
     lateinit var sharedPreferences: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
 
@@ -23,12 +24,13 @@ class OnBoardingActivity : AppCompatActivity(),OnBoardingOneFragment.OnNextClick
     }
 
     private fun setupSharedPreference() {
-        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, MODE_PRIVATE)
+        /*sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, MODE_PRIVATE)*/
+        StoreSession.init(this)
     }
 
     private fun bindView() {
         viewPager = findViewById(R.id.viewPager)
-        val adapter = FragmentAdapter(supportFragmentManager)
+        val adapter = FragmentAdapter(this)
         viewPager.adapter = adapter
     }
 
@@ -43,11 +45,13 @@ class OnBoardingActivity : AppCompatActivity(),OnBoardingOneFragment.OnNextClick
     override fun onOptionDone() {
 
         // setup sharedPreference for onBoarding activity
-        editor = sharedPreferences.edit()
-        editor.putBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY,true)
-        editor.apply()
+            /*editor = sharedPreferences.edit()
+            editor.putBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY,true)
+            editor.apply()*/
+            StoreSession.write(PrefConstant.ON_BOARDED_SUCCESSFULLY,true)
 
-        val intent = Intent(this@OnBoardingActivity,LoginActivity::class.java)
+        val intent = Intent(this@OnBoardingActivity, LoginActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }

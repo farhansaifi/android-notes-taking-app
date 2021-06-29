@@ -17,8 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TodoNotesApp">
         <activity android:name=".onboarding.OnBoardingActivity"
+            android:screenOrientation = "portrait"
             android:theme="@style/NoToolBar"/>
-        <activity android:name=".view.BlogActivity" /> <!-- Providing support authority added -->
+        <activity android:name=".blog.BlogActivity"
+            android:screenOrientation = "portrait" /> <!-- Providing support authority added -->
         <!-- And then we granted a permissions for permission -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -31,25 +33,33 @@
                 android:resource="@xml/provider_paths" />
         </provider> <!-- Adding firebase messaging service -->
         <service
-            android:name=".fcm.MyFirebaseMessagingService"
+            android:name=".utils.fcm.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".view.SplashActivity">
+        <activity android:name=".splash.SplashActivity"
+            android:theme="@style/NoToolBar"
+            android:screenOrientation = "portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.LoginActivity" />
-        <activity android:name=".view.DetailActivity" />
-        <activity android:name=".view.MyNotesActivity" />
-        <activity android:name=".view.MainActivity" />
-        <activity android:name=".view.AddNotesActivity" />
+        <activity android:name=".login.LoginActivity"
+            android:screenOrientation = "portrait"/>
+        <activity android:name=".detail.DetailActivity"
+            android:screenOrientation = "portrait"/>
+        <activity android:name=".mynotes.MyNotesActivity"
+            android:screenOrientation = "portrait"/>
+        <activity android:name=".detail.MainActivity"
+            android:screenOrientation = "portrait"/>
+        <activity android:name=".addnotes.AddNotesActivity"
+            android:screenOrientation = "portrait"
+            android:theme="@style/NoToolBar"/>
     </application>
 
 </manifest>

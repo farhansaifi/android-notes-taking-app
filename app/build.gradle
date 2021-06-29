@@ -67,6 +67,6 @@ dependencies {
     // Adding dependencies for networking create by amit third party library
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     // Adding This dependence for viewPager
-    implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
 }

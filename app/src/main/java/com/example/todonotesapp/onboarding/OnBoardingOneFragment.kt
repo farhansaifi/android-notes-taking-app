@@ -6,12 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import com.example.todonotesapp.R
 
 class OnBoardingOneFragment : Fragment() {
 
-    lateinit var textViewNext : TextView
+    lateinit var buttonNext : Button
     lateinit var onNextClick : OnNextClick
 
     override fun onAttach(context: Context) {
@@ -33,12 +34,12 @@ class OnBoardingOneFragment : Fragment() {
     }
 
     private fun bindViews(view: View) {
-        textViewNext = view.findViewById(R.id.textViewNext)
+        buttonNext = view.findViewById(R.id.buttonNext)
         clickListeners()
     }
 
     private fun clickListeners() {
-        textViewNext.setOnClickListener(object : View.OnClickListener{
+        buttonNext.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 onNextClick.onClick()
             }
