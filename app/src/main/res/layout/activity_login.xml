@@ -95,6 +95,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/login"
+        android:textColor="@color/white"
         android:backgroundTint="@color/black"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/userNameContainer"

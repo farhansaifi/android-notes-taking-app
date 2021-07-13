@@ -17,9 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TodoNotesApp">
         <activity android:name=".onboarding.OnBoardingActivity"
+            android:launchMode = "singleTop"
             android:screenOrientation = "portrait"
             android:theme="@style/NoToolBar"/>
         <activity android:name=".blog.BlogActivity"
+            android:launchMode = "singleTop"
             android:screenOrientation = "portrait" /> <!-- Providing support authority added -->
         <!-- And then we granted a permissions for permission -->
         <provider
@@ -42,6 +44,7 @@
 
         <activity android:name=".splash.SplashActivity"
             android:theme="@style/NoToolBar"
+            android:launchMode = "singleTop"
             android:screenOrientation = "portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,16 +53,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".login.LoginActivity"
+            android:launchMode = "singleTop"
             android:screenOrientation = "portrait"/>
         <activity android:name=".detail.DetailActivity"
+            android:launchMode = "singleTop"
             android:screenOrientation = "portrait"/>
         <activity android:name=".mynotes.MyNotesActivity"
+            android:launchMode = "singleTop"
             android:screenOrientation = "portrait"/>
         <activity android:name=".detail.MainActivity"
+            android:launchMode = "singleTop"
             android:screenOrientation = "portrait"/>
         <activity android:name=".addnotes.AddNotesActivity"
+            android:launchMode = "singleTop"
             android:screenOrientation = "portrait"
-            android:theme="@style/NoToolBar"/>
+            android:theme="@style/NoToolBar"
+            android:windowSoftInputMode="adjustResize"/> <!-- we will able to put submit button to above keyboard -->
     </application>
 
 </manifest>

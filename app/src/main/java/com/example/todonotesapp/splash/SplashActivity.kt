@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.todonotesapp.data.local.pref.PrefConstant
 import com.example.todonotesapp.R
 import com.example.todonotesapp.login.LoginActivity
@@ -25,6 +26,8 @@ class SplashActivity :AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // below line make app dark mode permanent off
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(R.layout.activity_splash)
 
         // creating a function for sharedPreference in this activity
